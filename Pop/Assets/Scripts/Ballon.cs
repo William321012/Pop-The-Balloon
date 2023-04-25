@@ -11,9 +11,11 @@ public class Ballon : MonoBehaviour
     [SerializeField] float BallonGrowStart = 4.0f;
     [SerializeField] float BallonGrowInterval = 2.0f;
     [SerializeField] float BallonGrowRate = 0.2f;
+    private int startingScore;
     // Start is called before the first frame update
     void Start()
     {
+        startingScore = PersistentData.Instance.GetScore();
         if (pop == null) {
             pop = GetComponent<AudioSource>();    
         }
@@ -39,7 +41,8 @@ public class Ballon : MonoBehaviour
         transform.localScale = new Vector3(transform.localScale.x + BallonGrowRate, transform.localScale.y + BallonGrowRate, transform.localScale.z);
         if (transform.localScale.x > 1.5) {
             AudioSource.PlayClipAtPoint(pop.clip, transform.position);
-            Destroy(gameObject);
+            PersistentData.Instance.SetScore(startingScore);
+            SceneManager.LoadScene(SceneManager.GetActiveScene().name);
         }
     }
 

@@ -38,6 +38,7 @@ public class ButtonFunctions : MonoBehaviour
 
     public void LoadMenu()
     {
+        PersistentData.Instance.SetScore(0);
         SceneManager.LoadScene("Main Menu");
     }
 

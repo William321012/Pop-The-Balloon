@@ -42,9 +42,9 @@ public class PersistentData : MonoBehaviour
         playerScore = score;
     }
 
-    public void IncrementScore()
+    public void IncrementScore(int points)
     {
-        playerScore += 1;
+        playerScore += points;
     }
 
     public string GetName()

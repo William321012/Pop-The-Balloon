@@ -28,7 +28,6 @@ public class ThrowPin : MonoBehaviour
         if (controller == null) {
             controller = GameObject.Find("GameController"); 
         }
-        
 
         //Change Pin direction and rotation.
         if (player.GetComponent<Movement>().isFacingRight == false) {
@@ -59,7 +58,15 @@ public class ThrowPin : MonoBehaviour
     {
         if (collision.gameObject.tag == "Balloon"){
             AudioSource.PlayClipAtPoint(pop.clip, transform.position);
-            controller.GetComponent<ScoreKeeper>().AddPoints();   
+            if (collision.gameObject.transform.localScale.x < .8f) {
+                controller.GetComponent<ScoreKeeper>().AddPoints(3);
+            } else if (collision.gameObject.transform.localScale.x < 1.2f) {
+                controller.GetComponent<ScoreKeeper>().AddPoints(2);  
+            } else if (collision.gameObject.transform.localScale.x < 1.5f) {
+                controller.GetComponent<ScoreKeeper>().AddPoints(1);  
+            }
+            Debug.Log(controller.GetComponent<ScoreKeeper>().currentPopCount);
+            controller.GetComponent<ScoreKeeper>().currentPopCount = controller.GetComponent<ScoreKeeper>().currentPopCount+1; 
             Destroy(collision.gameObject);
             Destroy(gameObject);
         }
