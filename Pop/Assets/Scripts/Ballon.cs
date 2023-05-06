@@ -38,7 +38,7 @@ public class Ballon : MonoBehaviour
     }
 
     void GrowingBalloon() {
-        transform.localScale = new Vector3(transform.localScale.x + BallonGrowRate, transform.localScale.y + BallonGrowRate, transform.localScale.z);
+        transform.localScale = new Vector3((transform.localScale.x + BallonGrowRate) * PersistentData.Instance.GetDifficulty(), (transform.localScale.y + BallonGrowRate) * PersistentData.Instance.GetDifficulty(), transform.localScale.z);
         if (transform.localScale.x > 1.5) {
             AudioSource.PlayClipAtPoint(pop.clip, transform.position);
             PersistentData.Instance.SetScore(startingScore);

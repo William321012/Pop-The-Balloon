@@ -7,6 +7,7 @@ public class PersistentData : MonoBehaviour
 
     [SerializeField] int playerScore;
     [SerializeField] string playerName;
+    [SerializeField] float playerDifficulty;
 
     public static PersistentData Instance;
 
@@ -42,6 +43,18 @@ public class PersistentData : MonoBehaviour
         playerScore = score;
     }
 
+    public void SetDifficulty(int difficulty)
+    {
+        // Difficulty has not been implemented with different leadersboards
+        if (difficulty == 0) {
+            playerDifficulty = 1f;
+        } else if (difficulty == 1) {
+            playerDifficulty = 1.5f;
+        } else if (difficulty == 2) {
+            playerDifficulty = 2f;
+        }
+    }
+
     public void IncrementScore(int points)
     {
         playerScore += points;
@@ -55,5 +68,10 @@ public class PersistentData : MonoBehaviour
     public int GetScore()
     {
         return playerScore;
+    }
+
+    public float GetDifficulty()
+    {
+        return playerDifficulty;
     }
 }

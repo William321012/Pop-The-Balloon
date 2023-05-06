@@ -65,7 +65,6 @@ public class ThrowPin : MonoBehaviour
             } else if (collision.gameObject.transform.localScale.x < 1.5f) {
                 controller.GetComponent<ScoreKeeper>().AddPoints(1);  
             }
-            Debug.Log(controller.GetComponent<ScoreKeeper>().currentPopCount);
             controller.GetComponent<ScoreKeeper>().currentPopCount = controller.GetComponent<ScoreKeeper>().currentPopCount+1; 
             Destroy(collision.gameObject);
             Destroy(gameObject);

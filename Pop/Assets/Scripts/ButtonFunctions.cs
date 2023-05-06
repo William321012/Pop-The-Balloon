@@ -8,6 +8,7 @@ public class ButtonFunctions : MonoBehaviour
 {
     [SerializeField] InputField username;
     [SerializeField] Slider volumeSlider;
+    [SerializeField] Dropdown difficultyDropdown;
     // Start is called before the first frame update
     void Start()
     {
@@ -16,12 +17,15 @@ public class ButtonFunctions : MonoBehaviour
             username.text = PersistentData.Instance.GetName();
             AudioListener.volume = .5f;
         }
+        if (difficultyDropdown != null) {
+            difficultyDropdown.value = 1;
+            ChangeDifficulty();
+        }
     }
 
     // Update is called once per frame
     void Update()
     {
-        
     }
 
     public void GoToInstruction()
@@ -44,5 +48,9 @@ public class ButtonFunctions : MonoBehaviour
 
     public void ChangeVolume() {
         AudioListener.volume = volumeSlider.value;
+    }
+
+    public void ChangeDifficulty() {
+        PersistentData.Instance.SetDifficulty(difficultyDropdown.value);
     }
 }

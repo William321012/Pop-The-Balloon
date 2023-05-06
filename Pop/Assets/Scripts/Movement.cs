@@ -12,11 +12,21 @@ public class Movement : MonoBehaviour
     [SerializeField] float jumpForce = 500.0f;
     [SerializeField] bool isGrounded = true;
 
+    [SerializeField] Animator animator;
+
+    const int IDLE = 0;
+    const int RUN = 1;
+    const int JUMP = 2;
+
     // Start is called before the first frame update.
     void Start(){
         if (body == null) { 
             body = GetComponent<Rigidbody2D>();
         }
+
+        if (animator == null)
+            animator = GetComponent<Animator>();
+        animator.SetInteger("Movement", IDLE);
     }
 
     // Update is called once per frame.
@@ -37,9 +47,18 @@ public class Movement : MonoBehaviour
         }
         if (jumpPressed && isGrounded){
             Jump();
-        }
-        else{
+        } else {
             jumpPressed = false;
+            if (isGrounded) {
+                if (movement > 0 || movement < 0)
+                {
+                    animator.SetInteger("Movement", RUN);
+                }
+                else
+                {
+                    animator.SetInteger("Movement", IDLE);
+                }
+            }
         }
     }
 
@@ -52,6 +71,7 @@ public class Movement : MonoBehaviour
     //Player jumps
     private void Jump()
     {
+        animator.SetInteger("Movement", JUMP);
         body.velocity = new Vector2(body.velocity.x, 0);
         body.AddForce(new Vector2(0, jumpForce));
         jumpPressed = false;
@@ -67,5 +87,6 @@ public class Movement : MonoBehaviour
         if (collision.gameObject.tag == "Rock"){
             isGrounded = true;
         }
+        animator.SetInteger("Movement", IDLE);
     }
 }
